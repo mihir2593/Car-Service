@@ -1,0 +1,23 @@
+{% extends 'client/master.html' %}
+{% load static %}
+{% block content %}
+{% for store in data %}
+
+<div class="list-group">
+
+    <a href="#" class="list-group-item list-group-item-action " aria-current="true">
+        <div class="d-flex w-100 justify-content-between">
+            <h3 class="mb-1">{{store.s_name}}</h3>
+            <a href="{% url 'servicerequest' store.id %}"><button type="submit" class="btn btn-danger">Book a Service</button> </a>
+        </div>
+
+        <p class="mb-1">Contact Number - {{store.s_phonenumber}}</p>
+        <p class="mb-1">Address : {{store.address}}</p>
+        <p class="mb-1">Time: {{store.o_time}} - {{store.c_time}}</p>
+
+    </a>
+
+
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "stores/master.html" %}
+{% block content %}
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Order </title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Order Details</h1>
+    <div class="order-details">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Product Price</th>
+                    <th>User id</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            {% for xy in data %}
+                <tr>
+                    <td>{{ xy.product.name }}</td>
+                    <td>{{ xy.price }}</td>
+                    <td>{{ xy.user.username }}</td>
+                </tr>
+            {% endfor %}
+                <!-- Add more items here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+{% endblock %}

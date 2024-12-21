@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Information Table</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Service Information</h2>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Store Branch Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Store Phone Number</th>
+            <th scope="col">Email Address</th>
+            <th scope="col">opening Time of Store</th>
+            <th scope="col">Closing Time of Store</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for ab in service %}
+        <tr>
+            <td>{{ab.s_name}}</td>
+            <td>{{ab.address}}</td>
+            <td>{{ab.s_phonenumber}}</td>
+            <td>{{ab.email}}</td>
+            <td>{{ab.o_time}}</td>
+            <td>{{ab.c_time}}</td>
+            <td>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-target="#basicModal" onclick="showDeletemodal('{{ ab.id }}')">
+                    Delete
+                </button>
+            </td>
+            <td>
+                <button type="submit" class="btn btn-secondary"><a
+                        href="{% url 'editstore' ab.id %}">Edit</a></button>
+            </td>
+        </tr>
+        {% endfor %}
+
+        <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog"
+             aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Delete</h5>
+                        <button type="button" class="close" onclick="showCancelConfirmationModal()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete this Category ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="showCancelConfirmationModal()">Cancel
+                        </button>
+                        <a id="deleteButton" href="#" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function showDeletemodal(itemId) {
+                console.log('Delete button clicked');
+                console.log(itemId);
+                var deleteUrl = "/service/deletestore/" + itemId + "/";
+                $('#deleteButton').attr('href', deleteUrl);
+                $('#deleteConfirmationModal').modal('show');
+                }
+                function showCancelConfirmationModal() {
+                $('#deleteConfirmationModal').modal('hide');
+            }
+        </script>
+
+        <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+{% extends "client/master.html" %}
+{% block content %}
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Free Tour Package Website Tempalte | Smarteyeapps.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" href="{% static 'client/assets/images/fav.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'client/assets/images/fav.jpg' %}">
+    <link rel="stylesheet" href="{% static 'client/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'client/assets/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'client/assets/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'client/assets/plugins/slider/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'client/assets/plugins/slider/css/owl.theme.default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'client/assets/css/style.css' %}"/>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+
+<!----- ############# Header ################ ----->
+
+
+<section class="top-packages container-fluid">
+    <div class="container">
+
+        <div class="pack-row row">
+            {% for product in data %}
+            <div class="col-md-4">
+                <div class="pac-col">
+                    <img src="{{ product.image.url  }}" height="250px" width="100px" alt="">
+                    <div class="packdetail">
+
+                        <div class="daydet">
+                            <h3 class="mb-2">{{ product.name }} <i id="hearticon_{{product.id}}"
+                                                                   onclick="Added('{{product.id}}')"
+                                                                   class="far fa-heart float-right"
+                                                                   style="font-size:28px;"></i></h3>
+    <!--                                                        <i class="fa fa-heart float-right" style="font-size:28px;color:red"></i>-->
+
+                            <h5>{{product.Cate.company}}</h5>
+                            <b>₹{{product.price}}</b>
+
+
+
+                        </div>
+
+
+                        <a href="{% url 'cart_add' product.id %}">
+                            <button class="btn btn-primary add-to-cart-btn"><i class="fa fa-shopping-cart"
+                                                                               style="font-size:24px"></i>
+                                Add to Cart
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+             <nav aria-label="Page navigation example">
+                <ul class="pagination mx-3">
+                    {% if data.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ data.previous_page_number }}">Previous</a>
+                    </li>
+                    {% endif %}
+                    <li class="page-item"><a class="page-link" href="#">{{ data.number }} of {{ data.paginator.num_pages }}</a></li>
+                    {% if data.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ data.next_page_number }}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ data.paginator.num_pages }}">Last</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+
+<div class="copy">
+    <div class="container">
+        <a href="https://www.smarteyeapps.com/">2015 &copy; All Rights Reserved | Designed and Developed by
+            Smarteyeapps</a>
+
+        <span>
+                <a><i class="fab fa-github"></i></a>
+                <a><i class="fab fa-google-plus-g"></i></a>
+                <a><i class="fab fa-pinterest-p"></i></a>
+                <a><i class="fab fa-twitter"></i></a>
+                <a><i class="fab fa-facebook-f"></i></a>
+        </span>
+    </div>
+
+</div>
+
+
+</body>
+
+<script src="{% static 'client/assets/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'client/assets/js/popper.min.js' %}"></script>
+<script src="{% static 'client/assets/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'client/assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js' %}"></script>
+<script src="{% static 'client/assets/plugins/slider/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'client/assets/js/script.js' %}"></script>
+<script>
+
+    function Added(Id){
+
+    let wish = document.getElementById(`hearticon_${Id}`);
+    console.log("wish",wish);
+    console.log("IDDDD",Id);
+    if (wish.classList.contains('far')) {
+            wish.classList.remove('far');
+            wish.classList.add('fa');
+            wish.style.color = 'red';
+        } else {
+            wish.classList.remove('fa');
+            wish.classList.add('far');
+            wish.style.color = '';
+        }
+    }
+</script>
+
+{% endblock %}
