@@ -1,0 +1,44 @@
+{% extends "client/master.html" %}
+{% block content %}
+{% load static %}
+<section class="h-100 h-custom">
+    <div class="container h-100 py-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Product Item</th>
+                            <th scope="col">Price</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <h1>Your Wishlist</h1>
+
+                        {% for product in products %}
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>
+                                <a href="{% url 'remove_from_wishlist' product.id %}"><i class="fa fa-trash"
+                                                                                         style="margin-top:10px;font-size:20px;color:red;"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

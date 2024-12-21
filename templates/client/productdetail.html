@@ -1,0 +1,37 @@
+{% extends 'client/master.html' %}
+{% load static %}
+{% block content %}
+
+
+<!-- Blog Start -->
+<div class="container py-5">
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <!-- Blog Detail Start -->
+            <div class="mb-5">
+                <img class="img-fluid w-100 rounded mb-5" src="{{ ab.image.url  }}" alt="">
+
+                <small class="me-3"><b> Name </b> : {{ data.name }}</small><br>
+                <small class="me-3"><b> Price </b>: {{data.Cate.company}}</small><br>
+                <small class="me-3"><b> Color </b> : ₹{{ data.price }}</small><br>
+
+
+
+
+
+                <form method="post" action="/client/cart/{{data.id}}/">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                       Add to cart
+                    </button>
+                </form>
+            </div>
+            <!-- Blog Detail End -->
+
+        </div>
+        <!-- Sidebar End -->
+    </div>
+</div>
+<!-- Blog End -->
+{% endblock %}

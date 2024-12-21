@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details Table</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-5 mb-4">Product Details Table</h2>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Use Category</th>
+                    <th scope="col">Use in Category</th>
+                    <th scope="col">Product Image</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for ab in data %}
+                <tr>
+                    <td><!-- Name Value --></td>
+                    <td><!-- Use Category Value --></td>
+                    <td><!-- Use in Category Value --></td>
+                    <td><!-- Product Image Value --></td>
+                    <td><!-- Price Value --></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

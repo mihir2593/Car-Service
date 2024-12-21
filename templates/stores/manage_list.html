@@ -1,0 +1,120 @@
+{% extends "stores/master.html" %}
+{% block content %}
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Details</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<table>
+    <thead>
+
+    <tr>
+        <th>Date Store Listed</th>
+        <th>Owner Name</th>
+        <th>Store Name</th>
+        <th>Store Phone Number</th>
+        <th>Email Address</th>
+        <th>opening Time of Store</th>
+        <th>Closing Time of Store</th>
+        <th>Owner Phone Number</th>
+        <th>Store Licence Document</th>
+        <th>Owner's Document (Aadhar Card, PAN Card)</th>
+        <th>Date/Year of Store First Started</th>
+        <th>Address</th>
+        <th>Image of Store</th>
+        <th>GST NO</th>
+    </tr>
+    </thead>
+
+
+    <tbody>
+    {% for ab in data %}
+
+    <tr>
+        <td>{{ ab.date_store_listed}}</td>
+        <td>{{ab.o_name}}</td>
+        <td>{{ab.s_name}}</td>
+        <td>{{ab.s_phonenumber}}</td>
+        <td>{{ab.email}}</td>
+        <td>{{ab.o_time}}</td>
+        <td>{{ab.c_time}}</td>
+        <td>{{ab.o_phonenumber}}</td>
+        <td><img src="{{ ab.storelicence.url }}" height="50px" width="100px"></td>
+        <td><img src="{{ ab.o_documents.url }}" height="50px" width="100px"></td>
+        <td>{{ab.store_started_date}}</td>
+        <td>{{ab.address}}</td>
+        <td><img src="{{ ab.s_image.url }}" height="50px" width="100px"></td>
+        <td>{{ab.gstno}}</td>
+      <td>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                         data-target="#basicModal" onclick="showDeletemodal('{{ ab.id }}')">
+                    Delete
+                </button>
+            </td>
+        <td>
+            <button type="submit" class="btn btn-danger"><a
+                    href="{% url 'editstorelist' ab.id %}">Edit</a></button>
+        </td>
+
+    </tr>
+
+    {% endfor %}
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog"
+             aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Delete</h5>
+                        <button type="button" class="close" onclick="showCancelConfirmationModal()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete this Category ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="showCancelConfirmationModal()">Cancel
+                        </button>
+                        <a id="deleteButton" href="#" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function showDeletemodal(itemId) {
+                console.log('Delete button clicked');
+                console.log(itemId);
+                var deleteUrl = "/store/deletestore/" + itemId + "/";
+                $('#deleteButton').attr('href', deleteUrl);
+                $('#deleteConfirmationModal').modal('show');
+                }
+                function showCancelConfirmationModal() {
+                $('#deleteConfirmationModal').modal('hide');
+            }
+        </script>
+
+    </tbody>
+
+</table>
+
+</body>
+{% endblock %}

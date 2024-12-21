@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snapfix Login</title>
+    <link rel="stylesheet" href="styles.css">
+<style>
+    body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: url("{% static 'st/bg1.png'%}") center/cover no-repeat;
+    background-color:black;
+}
+
+.container {
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    box-shadow:3px 10px 30px rgb(0,0,0,0.5);
+}
+
+.login-form h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline:none;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ff3c18;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: red;
+}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <form class="login-form" method="POST">
+            {% csrf_token%}
+            <h4>{{msg}}</h4>
+            <h1>Snapfix Registration</h1>
+            <div class="input-group">
+                <label for="username">Name</label>
+                <input type="text" id="name" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="username">Email</label>
+                <input type="email" id="username" name="email" required>
+            </div>
+
+             <div class="input-group">
+                <label for="username">Address</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+             <div class="input-group">
+                <label for="username">Phone</label>
+                <input type="text" id="phone" name="phone" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Confirm password</label>
+                <input type="password" id="password1" name="password1" required>
+            </div>
+            <button type="submit">Register</button>
+            <p>Already have an account <a href="{% url 'client-login' %}">Login now</a></p>
+        </form>
+    </div>
+</body>
+</html>

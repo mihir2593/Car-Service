@@ -1,0 +1,104 @@
+{% extends "stores/master.html" %}
+{% block content %}
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>product Details</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Product Information</h2>
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Use Category</th>
+            <th scope="col">Use in Category</th>
+            <th scope="col">Product Image</th>
+            <th scope="col">Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for xy in product %}
+        <tr>
+            <td> {{xy.name}}</td>
+            <td>{{xy.Cate.company}}</td>
+            <td>{{xy.Usecate.usecategory}}</td>
+            <td><img src="{{ xy.image.url }}" height="50px" width="100px"></td>
+            <td>{{xy.price}}</td>
+            <td>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                         data-target="#basicModal" onclick="showDeletemodal('{{ xy.id }}')">
+                    Delete
+                </button>
+            </td>
+            <td>
+                <button type="submit" class="btn btn-secondary"><a
+                        href="{% url 'editproduct' xy.id %}">Edit</a></button>
+            </td>
+        </tr>
+        {% endfor %}
+
+        <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog"
+             aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Delete</h5>
+                        <button type="button" class="close" onclick="showCancelConfirmationModal()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete this Category ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="showCancelConfirmationModal()">Cancel
+                        </button>
+                        <a id="deleteButton" href="#" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function showDeletemodal(itemId) {
+                console.log('Delete button clicked');
+                console.log(itemId);
+                var deleteUrl = "/store/deleteproduct/" + itemId + "/";
+                $('#deleteButton').attr('href', deleteUrl);
+                $('#deleteConfirmationModal').modal('show');
+                }
+                function showCancelConfirmationModal() {
+                $('#deleteConfirmationModal').modal('hide');
+            }
+        </script>
+
+
+        <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+</body>
+{% endblock %}
